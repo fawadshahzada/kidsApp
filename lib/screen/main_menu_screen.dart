@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainMenuScreen extends StatelessWidget {
   const MainMenuScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String greeting = '';
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      greeting = 'Good Morning';
+    } else if (hour < 17) {
+      greeting = 'Good Afternoon';
+    } else {
+      greeting = 'Good Evening';
+    }
     return SafeArea(
       child: Scaffold(
         body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           // placeholder circular image at the center
           Center(
             child: Container(
-                width: 120,
-                height: 120,
+                width: 100.w,
+                height: 100.h,
                 padding: const EdgeInsets.all(17),
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
@@ -27,22 +37,22 @@ class MainMenuScreen extends StatelessWidget {
             height: 20,
           ),
           // good morning text
-          const Text(
-            'Good Morning',
+          Text(
+            greeting,
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 15.sp,
               fontWeight: FontWeight.normal,
             ),
           ),
           // text CAKKA
-          const Text(
+          Text(
             'CAKKA',
             style: TextStyle(
                 fontFamily: 'Merchindise',
-                fontSize: 28,
+                fontSize: 28.sp,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 2.5,
-                color: Color(0xffae3c39)),
+                color: const Color(0xffae3c39)),
           ),
           const SizedBox(
             height: 10,
@@ -53,10 +63,10 @@ class MainMenuScreen extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             // long Grid container
-            padding: const EdgeInsets.all(30),
+            padding: EdgeInsets.all(20.r),
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
-            childAspectRatio: 0.7,
+            childAspectRatio: 0.8,
             children: [
               menuContainer(
                 const Color(0xffe7f4e8),
@@ -109,7 +119,7 @@ class MainMenuScreen extends StatelessWidget {
     onPressed,
   ) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(20.r),
       child: Container(
         color: containerColor,
         child: InkWell(
@@ -120,16 +130,16 @@ class MainMenuScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 20.h,
               ),
               Image.asset(
                 imagePath,
-                width: 90,
-                height: 90,
+                width: 90.w,
+                height: 90.h,
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 20.h,
               ),
               Text(
                 text,

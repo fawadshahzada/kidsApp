@@ -1,5 +1,7 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kidsapp/screen/alphabets_screen.dart';
 import 'package:kidsapp/screen/count_game_screen.dart';
 import 'package:kidsapp/screen/main_menu_screen.dart';
@@ -29,21 +31,24 @@ class MyApp extends StatelessWidget {
         ),
         //ChangeNotifierProvider(create: (context) => Alphabets()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Kids App',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+      child: ScreenUtilInit(
+        designSize: const Size(360, 690),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Kids App',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const MainMenuScreen(),
+            '/numbersScreen': (context) => const NumbersScreen(),
+            '/countGame': (context) => const CountGameScreen(),
+            '/shapesScreen': (context) => const ShapesScreen(),
+            '/alphabetsScreen': (context) => const AlphabetsScreen(),
+          },
         ),
-        initialRoute: '/',
-        routes: {
-          '/': (context) => const MainMenuScreen(),
-          '/numbersScreen': (context) => const NumbersScreen(),
-          '/countGame': (context) => const CountGameScreen(),
-          '/shapesScreen': (context) => const ShapesScreen(),
-          '/alphabetsScreen': (context) => const AlphabetsScreen(),
-        },
       ),
     );
   }

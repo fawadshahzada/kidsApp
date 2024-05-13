@@ -1,4 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kidsapp/class/numbers_class.dart';
 
 import '../widgets/number_widget.dart';
@@ -21,12 +23,12 @@ class _NumbersScreenState extends State<NumbersScreen> {
         body: Column(
           children: [
             Expanded(
-              flex: 3,
+              flex: 4,
               child: Column(
                 children: [
                   // back button
                   Container(
-                    padding: const EdgeInsets.all(20),
+                    padding: EdgeInsets.all(10.r),
                     child: Row(
                       children: [
                         IconButton(
@@ -46,17 +48,17 @@ class _NumbersScreenState extends State<NumbersScreen> {
                     alignment: Alignment.centerLeft,
                     child: Container(
                       padding: const EdgeInsets.only(left: 40),
-                      child: const Text(
+                      child: Text(
                         'Numbers',
                         style: TextStyle(
-                          fontSize: 40,
+                          fontSize: 40.sp,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 10.h,
                   ),
                   // some text
                   Align(
@@ -71,9 +73,6 @@ class _NumbersScreenState extends State<NumbersScreen> {
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
                   ),
                   //large number
                   NumberWidget(selectedNumber: selectedNumber)
@@ -164,10 +163,11 @@ class _NumbersScreenState extends State<NumbersScreen> {
     return InkWell(
       onTap: onPressed,
       child: SizedBox(
-        child: Text(
+        child: AutoSizeText(
           number.number,
+          minFontSize: 40,
+          maxFontSize: 80,
           style: const TextStyle(
-            fontSize: 50,
             fontWeight: FontWeight.bold,
           ),
         ),

@@ -2,7 +2,9 @@ import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:kidsapp/class/count_game_class.dart';
 
 Color randomColor() {
@@ -12,6 +14,7 @@ Color randomColor() {
 class CountGameWidget extends StatefulWidget {
   final CountGame game;
   final Function() onCorrectAnswer;
+
 
   const CountGameWidget({
     Key? key,
@@ -30,6 +33,8 @@ class _CountGameWidgetState extends State<CountGameWidget> {
   late ConfettiController _controllerCenterLeft;
   late ConfettiController _controllerTopCenter;
   late ConfettiController _controllerBottomCenter;
+  bool isSnackBarShowing = false;
+
 
   @override
   void initState() {
@@ -98,106 +103,6 @@ class _CountGameWidgetState extends State<CountGameWidget> {
       widget.game.wrongAnswer3,
     ]..shuffle();
 
-    // // void showFeedback(bool isCorrect) {
-    // //   if (isCorrect) {
-    // //     _controllerCenter.play();
-    // //     _controllerBottomCenter.play();
-    // //     _controllerCenterLeft.play();
-    // //     _controllerCenterRight.play();
-    // //     _controllerTopCenter.play();
-    // //   } else {
-    // //     _controllerCenter.stop();
-    // //     _controllerBottomCenter.stop();
-    // //     _controllerCenterLeft.stop();
-    // //     _controllerCenterRight.stop();
-    // //     _controllerTopCenter.stop();
-    // //   }
-    // //   player.play(isCorrect
-    // //       ? AssetSource('voice/shapes_game/success.mp3')
-    // //       : AssetSource('voice/shapes_game/wrong.mp3'));
-    // //
-    // //  // show alert dialog beautiful
-    // //   showDialog(
-    // //     context: context,
-    // //     builder: (context) {
-    // //       return Dialog(
-    // //         shape: RoundedRectangleBorder(
-    // //           borderRadius: BorderRadius.circular(20.0),
-    // //         ),
-    // //         child: Container(
-    // //           padding: const EdgeInsets.all(60.0),
-    // //           child: Column(
-    // //             mainAxisAlignment: MainAxisAlignment.center,
-    // //             mainAxisSize: MainAxisSize.min,
-    // //             children: [
-    // //               isCorrect
-    // //                   ? Image.asset(
-    // //                 'assets/images/congrats.gif',
-    // //                 height: 100,
-    // //                 width: 100,
-    // //               )
-    // //                   : Image.asset(
-    // //                 'assets/images/lion_face.png',
-    // //                 height: 100,
-    // //                 width: 100,
-    // //               ),
-    // //               const SizedBox(height: 20),
-    // //               Text(
-    // //                 isCorrect ? 'Correct!' : 'Oops, try again!',
-    // //                 style: TextStyle(
-    // //                   fontSize: 20,
-    // //                   fontWeight: FontWeight.bold,
-    // //                   color: isCorrect ? Colors.green : Colors.red,
-    // //                 ),
-    // //               ),
-    // //               const SizedBox(height: 30),
-    // //               SizedBox(
-    // //                 width: double.maxFinite,
-    // //                 height: 70,
-    // //                 child: ElevatedButton(
-    // //                   onPressed: () {
-    // //                     Navigator.pop(context);
-    // //                     if (isCorrect) {
-    // //                       _controllerCenterRight.stop();
-    // //                       _controllerCenterLeft.stop();
-    // //                       _controllerTopCenter.stop();
-    // //                       _controllerBottomCenter.stop();
-    // //                       _controllerCenter.stop();
-    // //                       widget.onCorrectAnswer();
-    // //                     }
-    // //                   },
-    // //                   style: ElevatedButton.styleFrom(
-    // //                     backgroundColor: isCorrect ? Colors.green : Colors.red,
-    // //                     shape: RoundedRectangleBorder(
-    // //                       borderRadius: BorderRadius.circular(10.0),
-    // //                     ),
-    // //                   ),
-    // //                   child: const Text(
-    // //                     'OK',
-    // //                     style: TextStyle(
-    // //                       fontSize: 24,
-    // //                       fontWeight: FontWeight.bold,
-    // //                       color: Colors.white
-    // //                     ),
-    // //                   ),
-    // //                 ),
-    // //               ),
-    // //             ],
-    // //           ),
-    // //         ),
-    // //       );
-    // //     },
-    // //   ).whenComplete(() {
-    // //     if (isCorrect) {
-    // //       _controllerCenterRight.stop();
-    // //       _controllerCenterLeft.stop();
-    // //       _controllerTopCenter.stop();
-    // //       _controllerBottomCenter.stop();
-    // //       _controllerCenter.stop();
-    // //       widget.onCorrectAnswer();
-    // //     }
-    // //   });
-    // }
     void showFeedback(bool isCorrect) async {
       if (isCorrect) {
         _controllerCenter.play();
@@ -219,49 +124,66 @@ class _CountGameWidgetState extends State<CountGameWidget> {
           ? AssetSource('voice/shapes_game/success.mp3')
           : AssetSource('voice/shapes_game/wrong.mp3'));
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Container(
-            height: 130,
-            width: 400,
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
-            child: Column(
-              children: [
-                isCorrect
-                    ? Image.asset(
-                        'assets/images/congrats.gif',
-                        height: 50,
-                        width: 50,
-                  fit: BoxFit.cover,
-                      )
-                    : Image.asset(
-                        'assets/images/lion_face.png',
-                        height: 50,
-                        width: 50,
-                      ),
-                const SizedBox(height: 10),
-                Text(
-                  isCorrect ? 'Correct!' : 'Oops, try again!',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: isCorrect ? Colors.green : Colors.red,
+      if (mounted && !isSnackBarShowing) {  // Check if the widget is still in the tree and SnackBar is not already showing
+        isSnackBarShowing = true;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: GlassContainer(
+              opacity: 0.1,
+              shadowStrength: 8,
+              color: Colors.white.withOpacity(0.1),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  randomColor(),
+                  randomColor(),
+                ],
+              ),
+              child: Column(
+                children: [
+                  isCorrect
+                      ? Image.asset(
+                    'assets/images/congrats.gif',
+                    height: 50.h,
+                    width: 70.w,
+                    fit: BoxFit.cover,
+                  )
+                      : Image.asset(
+                    'assets/images/lion_face.png',
+                    height: 50.h,
+                    width: 70.w,
                   ),
-                ),
-              ],
+                  SizedBox(height: 10.h),
+                  Text(
+                    isCorrect ? 'Correct!' : 'Oops, try again!',
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                      color: isCorrect ? Colors.green : Colors.red,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            duration: const Duration(seconds: 1),
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.symmetric(
+              horizontal: 20.w,
+              vertical: 10.h,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.r),
             ),
           ),
-          duration: const Duration(seconds: 1),
-          behavior: SnackBarBehavior.floating,
-
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-        ),
-      );
+        ).closed.then((reason) {
+          isSnackBarShowing = false;
+        });
+      }
     }
+
     return SizedBox(
-      height: height * 0.7,
+      height: height * 0.65,
       width: width * 0.8,
       child: Column(
         children: [
@@ -288,7 +210,7 @@ class _CountGameWidgetState extends State<CountGameWidget> {
             child: Align(
               alignment: Alignment.center,
               child: StaggeredGrid.count(
-                crossAxisCount: 4,
+                crossAxisCount: 5,
                 mainAxisSpacing: 8.0,
                 crossAxisSpacing: 8.0,
                 children: [
@@ -345,6 +267,9 @@ class _CountGameWidgetState extends State<CountGameWidget> {
               buildAnswerButton(shuffledAnswers[1], showFeedback),
             ],
           ),
+          SizedBox(
+            height: 10.h,
+          ),
           Align(
             alignment: Alignment.centerRight,
             child: ConfettiWidget(
@@ -364,7 +289,6 @@ class _CountGameWidgetState extends State<CountGameWidget> {
               createParticlePath: drawStar, // define a custom shape/path.
             ),
           ),
-          const SizedBox(height: 15),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -395,22 +319,23 @@ class _CountGameWidgetState extends State<CountGameWidget> {
       ),
     );
   }
+
   Widget buildAnswerButton(int answer, Function(bool) showFeedback) {
     return SizedBox(
-      width: 150,
-      height: 100,
+      width: 120.w,
+      height: 80.h,
       child: ElevatedButton(
         onPressed: () {
           showFeedback(answer == widget.game.correctAnswer);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: randomColor(),
-          textStyle: const TextStyle(
-            fontSize: 20,
+          textStyle: TextStyle(
+            fontSize: 20.sp,
             fontWeight: FontWeight.bold,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(10.r),
           ),
         ),
         child: Text(

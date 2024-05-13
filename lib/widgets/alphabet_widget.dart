@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../class/alphabets_class.dart';
 
@@ -31,12 +32,12 @@ class _LettersWidgetState extends State<LettersWidget> {
           Align(
             alignment: Alignment.centerLeft,
             child: Container(
-              padding: const EdgeInsets.only(left: 40),
+              padding: EdgeInsets.only(left: 30.w),
               child: Text(
                 widget.title.alphabet,
                 style: TextStyle(
                   color: randomColor(),
-                  fontSize: 200,
+                  fontSize: 150.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -46,45 +47,48 @@ class _LettersWidgetState extends State<LettersWidget> {
           Align(
             alignment: Alignment.centerLeft,
             child: Container(
-              padding: const EdgeInsets.only(left: 40),
-              child: RichText(
-                text: TextSpan(
-                  text: '(${widget.title.alphabet}',
-                  style: TextStyle(
-                    color: randomColor(),
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: '= ${widget.title.forwardAlphabet})',
-                      style: TextStyle(
-                        color: randomColor(),
-                        fontSize: 40,
-                        fontWeight: FontWeight.normal,
-                      ),
+                padding: EdgeInsets.only(left: 30.w),
+                child: RichText(
+                  text: TextSpan(
+                    text: '(${widget.title.alphabet}',
+                    style: TextStyle(
+                      color: randomColor(),
+                      fontSize: 35.sp,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
-              )
-            ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '= ${widget.title.forwardAlphabet})',
+                        style: TextStyle(
+                          color: randomColor(),
+                          fontSize: 35.sp,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
           ),
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: 10.h,
           ),
           // speaker icon to play the sound of the alphabet
           Align(
             alignment: Alignment.centerLeft,
             child: Container(
-              padding: const EdgeInsets.only(left: 40),
+              padding: EdgeInsets.only(left: 30.w),
               child: IconButton(
                 onPressed: () {
-                  AudioPlayer()
-                      .play(AssetSource(widget.title.audioPath));
+                  AudioPlayer().play(
+                    AssetSource(
+                      widget.title.audioPath,
+                    ),
+                  );
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.volume_up,
-                  size: 45,
+                  size: 45.sp,
+                  color: randomColor(),
                 ),
               ),
             ),

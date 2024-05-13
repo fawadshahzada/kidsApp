@@ -1,4 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kidsapp/class/alphabets_class.dart';
 import 'package:kidsapp/screen/drawing_screen.dart';
 import '../widgets/alphabet_widget.dart';
@@ -27,7 +29,7 @@ class _AlphabetsScreenState extends State<AlphabetsScreen> {
                   children: [
                     // back button long
                     Container(
-                      padding: const EdgeInsets.all(20),
+                      padding: EdgeInsets.only(left: 10.w, top: 15.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -35,9 +37,10 @@ class _AlphabetsScreenState extends State<AlphabetsScreen> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.arrow_back,
-                              size: 45,
+                              size: 45.sp,
+                              color: randomColor(),
                             ),
                           ),
                           IconButton(
@@ -47,9 +50,10 @@ class _AlphabetsScreenState extends State<AlphabetsScreen> {
                                 return const DrawingCanvas();
                               }));
                             },
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.draw_outlined,
-                              size: 45,
+                              size: 45.sp,
+                              color: randomColor(),
                             ),
                           ),
                         ],
@@ -59,12 +63,12 @@ class _AlphabetsScreenState extends State<AlphabetsScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
-                        padding: const EdgeInsets.only(left: 40),
-                        child: const Text(
+                        padding: EdgeInsets.only(left: 30.w),
+                        child: Text(
                           'Letters',
                           style: TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 40.sp,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -76,7 +80,7 @@ class _AlphabetsScreenState extends State<AlphabetsScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
-                        padding: const EdgeInsets.only(left: 40),
+                        padding: EdgeInsets.only(left: 30.w),
                         child: const Text(
                           'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z',
                           style: TextStyle(
@@ -254,13 +258,14 @@ class _AlphabetsScreenState extends State<AlphabetsScreen> {
         Expanded(
           child: InkWell(
             onTap: onPressed1,
-            child: SizedBox(
-              child: Text(
-                alphabet1.alphabet,
-                style: const TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),
+            child: AutoSizeText(
+              alphabet1.alphabet,
+              maxLines: 1,
+              maxFontSize: 28,
+              minFontSize: 20,
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
@@ -268,8 +273,11 @@ class _AlphabetsScreenState extends State<AlphabetsScreen> {
         Expanded(
           child: InkWell(
             onTap: onPressed2,
-            child: Text(
+            child: AutoSizeText(
               alphabet2.alphabet,
+              maxLines: 1,
+              maxFontSize: 28,
+              minFontSize: 20,
               style: const TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,

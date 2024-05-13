@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kidsapp/widgets/count_game_widget.dart';
 
 import '../class/count_game_class.dart';
@@ -57,7 +58,6 @@ class _Level1HandlerState extends State<Level1Handler> {
               height: 10,
             ),
             CountGameWidget(game: widget.games[level], onCorrectAnswer: () {
-              print('was here');
               setState(() {
                 level = (level + 1) % widget.games.length;
               });
@@ -65,75 +65,77 @@ class _Level1HandlerState extends State<Level1Handler> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        elevation: 0,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Container(
-                height: 200,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.rectangle,
-                ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      level = (level - 1) % widget.games.length;
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: randomColor(),
-                    textStyle: const TextStyle(
+      bottomNavigationBar: SizedBox(
+        child: BottomAppBar(
+          elevation: 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Container(
+                  height: 100.h,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.rectangle,
+                  ),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        level = (level - 1) % widget.games.length;
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: randomColor(),
+                      textStyle: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                    child: const Text('Previous',style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+                      fontWeight: FontWeight.normal,
+                    ),),
                   ),
-                  child: const Text('Previous',style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.normal,
-                  ),),
                 ),
               ),
-            ),
-            const SizedBox(width: 10,),
-            Expanded(
-              child: Container(
-                height: 200,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.rectangle,
-                ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      level = (level + 1) % widget.games.length;
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: randomColor(),
-                    textStyle: const TextStyle(
+              const SizedBox(width: 10,),
+              Expanded(
+                child: Container(
+                  height: 100.h,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.rectangle,
+                  ),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        level = (level + 1) % widget.games.length;
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: randomColor(),
+                      textStyle: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                    child: const Text('Next',style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+                      fontWeight: FontWeight.normal,
+                    ),),
                   ),
-                  child: const Text('Next',style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.normal,
-                  ),),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
