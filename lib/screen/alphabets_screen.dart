@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kidsapp/class/alphabets_class.dart';
@@ -258,13 +257,11 @@ class _AlphabetsScreenState extends State<AlphabetsScreen> {
         Expanded(
           child: InkWell(
             onTap: onPressed1,
-            child: AutoSizeText(
+            child: Text(
               alphabet1.alphabet,
               maxLines: 1,
-              maxFontSize: 28,
-              minFontSize: 20,
-              style: const TextStyle(
-                fontSize: 28,
+              style: TextStyle(
+                fontSize: 28.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -273,13 +270,11 @@ class _AlphabetsScreenState extends State<AlphabetsScreen> {
         Expanded(
           child: InkWell(
             onTap: onPressed2,
-            child: AutoSizeText(
+            child: Text(
               alphabet2.alphabet,
               maxLines: 1,
-              maxFontSize: 28,
-              minFontSize: 20,
-              style: const TextStyle(
-                fontSize: 28,
+              style: TextStyle(
+                fontSize: 28.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),

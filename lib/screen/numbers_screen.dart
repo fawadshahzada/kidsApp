@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kidsapp/class/numbers_class.dart';
@@ -163,11 +162,10 @@ class _NumbersScreenState extends State<NumbersScreen> {
     return InkWell(
       onTap: onPressed,
       child: SizedBox(
-        child: AutoSizeText(
+        child: Text(
           number.number,
-          minFontSize: 40,
-          maxFontSize: 80,
-          style: const TextStyle(
+          style: TextStyle(
+            fontSize: 40.sp,
             fontWeight: FontWeight.bold,
           ),
         ),
