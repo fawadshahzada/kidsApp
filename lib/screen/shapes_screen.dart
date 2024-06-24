@@ -3,7 +3,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:provider/provider.dart';
-
 import '../state_management/shapes_provider.dart';
 
 class ShapesScreen extends StatelessWidget {
@@ -455,7 +454,7 @@ class ShapesScreen extends StatelessWidget {
               ],
             ),
             //--code to remove border
-            border: Border.fromBorderSide(BorderSide.none),
+            border: const Border.fromBorderSide(BorderSide.none),
             shadowStrength: 0,
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(16),
@@ -496,12 +495,12 @@ class ShapesScreen extends StatelessWidget {
                         },
                         style: ButtonStyle(
                           elevation: MaterialStateProperty.all(10),
-                          shape:MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: const BorderSide(color: Colors.orange)
-                              )
-                          ),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      side: const BorderSide(
+                                          color: Colors.orange))),
                         ),
                         child: const Text(
                           'Close',
